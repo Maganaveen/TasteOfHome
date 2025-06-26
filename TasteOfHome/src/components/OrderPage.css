@@ -1,0 +1,287 @@
+/* Main grid */
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.bogo-tag {
+  background-color: #e91e63;
+  color: white;
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 10px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+}
+/* Filter and Search Bar Horizontal Layout */
+.filter-search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+/* Dropdown Wrapper */
+.category-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 14px;
+  color: #444;
+}
+
+.category-filter {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 200px;
+}
+
+/* Search Input */
+.search-input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 240px;
+}
+
+
+@media (min-width: 768px) {
+  .filter-search-bar {
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  .category-wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .search-input {
+    margin-top: 0;
+  }
+}
+
+.menu-card {
+  width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.menu-img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.like-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  text-shadow: 0 0 3px rgba(0,0,0,0.5);
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+
+.like-button.liked {
+  color: #ff4444;
+}
+
+.like-button:hover {
+  transform: scale(1.1);
+}
+
+.menu-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.add-to-cart-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.order-btn{
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Modal */
+/* Modal Background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: auto;
+}
+
+/* Modal Content Area */
+.modal-content {
+  background: white;
+  padding: 24px;
+  width: 95%;
+  max-width: 700px; /* increased from 500px */
+  max-height: 90vh; /* important for scroll */
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Image */
+.modal-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Scrollbar style (optional, for better UX) */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+
+.quantity-section,
+.payment-method {
+  margin: 12px 0;
+}
+
+.quantity-section input {
+  width: 60px;
+  padding: 6px;
+  margin-left: 8px;
+}
+
+.order-form input,
+.order-form textarea,
+.order-form select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.order-form button {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.close-modal-btn {
+  margin-top: 10px;
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.order-confirmation {
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pricing-section {
+  margin-top: 12px;
+  text-align: left;
+}
+.upi-qr-section {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.upi-qr-img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-top: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+.payment-options {
+  display: flex;
+  flex-direction: row; /* ← display radio buttons inline */
+  gap: 20px;           /* ← spacing between options */
+  margin: 10px 0;
+  align-items: center;
+  flex-wrap: wrap;     /* makes it responsive */
+}
+
+.payment-options label {
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.order-status-section {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+
+.review-form {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+
+.review-form .MuiRating-root {
+  margin: 10px 0;
+}

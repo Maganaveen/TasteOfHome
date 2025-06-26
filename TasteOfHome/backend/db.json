@@ -1,0 +1,20 @@
+    {
+  "menu": [
+    {
+      "id": 1,
+      "name": "Butter Chicken",
+      "category": "Main Dishes",
+      "description": "Creamy, spiced tomato curry with tender chicken.",
+      "price": 250,
+      "image": "/butter-chicken.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Paneer Tikka",
+      "category": "Appetizers",
+      "description": "Grilled paneer marinated in aromatic spices.",
+      "price": 180,
+      "image": "/paneer-tikka.jpg"
+    }
+  ]
+}

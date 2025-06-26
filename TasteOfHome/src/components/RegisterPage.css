@@ -1,0 +1,156 @@
+.split-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.brand-side {
+  flex: 1;
+  background-color: #ff6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 2rem;
+}
+
+.brand-content {
+  text-align: center;
+}
+
+.brand-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.brand-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.brand-content p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.register-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 2rem;
+}
+
+.register-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+input.error {
+  border-color: #ff4444;
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.register-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.register-button:hover {
+  background-color: #ff5252;
+}
+
+.register-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.login-link p {
+  color: #666;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.login-link a {
+  color: #ff6b6b;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+  color: #ff5252;
+}
+
+@media (max-width: 768px) {
+  .split-container {
+    flex-direction: column;
+  }
+  
+  .brand-side,
+  .register-side {
+    flex: none;
+    padding: 2rem 1rem;
+  }
+  
+  .brand-side {
+    min-height: 200px;
+  }
+  
+  .brand-image {
+    max-width: 80%;
+    margin-bottom: 1.5rem;
+  }
+}

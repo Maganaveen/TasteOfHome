@@ -1,0 +1,98 @@
+.food-page {
+  background-color: #fff8f0;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Thoranam Banner */
+.thoranam-banner {
+  width: 100vw;           /* Full screen width */
+  height: 80px;           /* Adjust height as needed */
+  object-fit: cover;      /* Ensure it doesn't stretch */
+  display: block;
+  margin-bottom: 1rem;
+}
+
+
+/* Kolam Border at Bottom */
+.kolam-border {
+  width: 80%;
+  height: auto;
+  margin: 40px auto 0;
+  display: block;
+  transform: rotate(180deg); /* Aligns from right to left */
+}
+
+/* Decorative Lamps on both sides */
+.corner-lamp {
+  position: absolute;
+  top: 20px;
+  width: 80px;
+  height: auto;
+}
+
+.corner-lamp:first-of-type {
+  left: 10px;
+}
+
+.corner-lamp:last-of-type {
+  right: 10px;
+}
+
+/* Food Grid Layout */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.food-card {
+  background-color: #fff7eb;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.food-card:hover {
+  transform: scale(1.05);
+}
+
+.food-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.food-card h3 {
+  margin: 10px 0 6px;
+  font-size: 18px;
+  color: #b3541e;
+}
+
+.food-card p {
+  font-size: 14px;
+  color: #5f3c1a;
+}
+.bottom-decor {
+  margin-top: 60px;
+  width: 100%;
+  height: 100px;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional footer message */
+.bottom-message {
+  background-color: #fcefdc;
+  text-align: center;
+  padding: 10px;
+  font-weight: 500;
+  color: #5f3c1a;
+  border-top: 2px solid #d5a85f;
+}
