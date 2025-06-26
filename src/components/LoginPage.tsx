@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
     password: ''
   });
   const [errors, setErrors] = useState<Partial<LoginFormData>>({});
-  const [error, setError] = useState<string>('');
+  const [, setError] = useState<string>('');
 
   const validateForm = (): boolean => {
     const newErrors: Partial<LoginFormData> = {};
