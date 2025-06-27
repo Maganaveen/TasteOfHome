@@ -43,7 +43,7 @@ const LoginPage: React.FC = () => {
         interface LoginResponse {
           token: string;
         }
-        const response = await axios.post<LoginResponse>('http://localhost:5000/api/login', formData);
+        const response = await axios.post<LoginResponse>(`${import.meta.env.VITE_API_URL}/api/login`, formData);
         const { token } = response.data;
         localStorage.setItem('token', token);
         navigate('/home');

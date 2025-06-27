@@ -13,7 +13,8 @@ import VegFoodPage from './components/VegFoodPage'; // Import the new component
 import NonVegFoodPage from './components/NonVegFoodPage';
 function App() {
   return (
-    <Router>
+    <Router basename="/TasteOfHome">
+
       <CartProvider>
         <div className="App">
           <Routes>
