@@ -2,19 +2,19 @@ import React from 'react';
 import './ModernFoodPage.css';
 
 const modernFoods = [
-  { name: 'Peri Peri Fries', image: '/TasteOfHome/fries.jpg', description: 'Crispy fries with spicy peri peri seasoning.' },
-  { name: 'Paneer Wrap', image: '/TasteOfHome/wrap.jpg', description: 'Fusion of Indian paneer and tortilla wrap.' },
-  { name: 'Bubble Tea', image: '/TasteOfHome/bubbletea.jpg', description: 'Refreshing milk tea with tapioca pearls.' },
-  { name: 'Sushi Rolls', image: '/TasteOfHome/sushi.jpg', description: 'Japanese-style rolls with rice, veggies, and seafood.' },
-  { name: 'Falafel Bowl', image: '/TasteOfHome/falafel.jpg', description: 'Middle-Eastern chickpea patties in a power bowl.' },
-  { name: 'Avocado Toast', image: '/TasteOfHome/avocadotoast.jpg', description: 'Toasted bread topped with smashed avocado and toppings.' },
-  { name: 'Vegan Burger', image: '/TasteOfHome/veganburger.jpg', description: 'Plant-based burger with lettuce, tomato, and vegan mayo.' },
-  { name: 'Tandoori Pizza', image: '/TasteOfHome/tandooripizza.jpg', description: 'Indian-inspired pizza with tandoori veggies and paneer.' },
-  { name: 'Mango Smoothie Bowl', image: '/TasteOfHome/smoothiebowl.jpg', description: 'Tropical mango smoothie topped with seeds and fruits.' },
-  { name: 'Chocolate Lava Cake', image: '/TasteOfHome/lavacake.jpg', description: 'Warm chocolate cake with gooey center.' },
-  { name: 'Pasta Alfredo', image: '/TasteOfHome/alfredo.jpg', description: 'Creamy white sauce pasta with herbs and cheese.' },
-  { name: 'Stuffed Tacos', image: '/TasteOfHome/tacos.jpg', description: 'Crispy tacos loaded with modern Indian fillings.' },
-  { name: 'Cold Brew Coffee', image: '/TasteOfHome/coldbrew.jpg', description: 'Chilled coffee steeped overnight for bold flavor.' }
+  { name: 'Peri Peri Fries', image: '${import.meta.env.BASE_URL}fries.jpg', description: 'Crispy fries with spicy peri peri seasoning.' },
+  { name: 'Paneer Wrap', image: '${import.meta.env.BASE_URL}wrap.jpg', description: 'Fusion of Indian paneer and tortilla wrap.' },
+  { name: 'Bubble Tea', image: '${import.meta.env.BASE_URL}bubbletea.jpg', description: 'Refreshing milk tea with tapioca pearls.' },
+  { name: 'Sushi Rolls', image: '${import.meta.env.BASE_URL}sushi.jpg', description: 'Japanese-style rolls with rice, veggies, and seafood.' },
+  { name: 'Falafel Bowl', image: '${import.meta.env.BASE_URL}falafel.jpg', description: 'Middle-Eastern chickpea patties in a power bowl.' },
+  { name: 'Avocado Toast', image: '${import.meta.env.BASE_URL}avocadotoast.jpg', description: 'Toasted bread topped with smashed avocado and toppings.' },
+  { name: 'Vegan Burger', image: '${import.meta.env.BASE_URL}veganburger.jpg', description: 'Plant-based burger with lettuce, tomato, and vegan mayo.' },
+  { name: 'Tandoori Pizza', image: '${import.meta.env.BASE_URL}tandooripizza.jpg', description: 'Indian-inspired pizza with tandoori veggies and paneer.' },
+  { name: 'Mango Smoothie Bowl', image: '${import.meta.env.BASE_URL}smoothiebowl.jpg', description: 'Tropical mango smoothie topped with seeds and fruits.' },
+  { name: 'Chocolate Lava Cake', image: '${import.meta.env.BASE_URL}lavacake.jpg', description: 'Warm chocolate cake with gooey center.' },
+  { name: 'Pasta Alfredo', image: '${import.meta.env.BASE_URL}alfredo.jpg', description: 'Creamy white sauce pasta with herbs and cheese.' },
+  { name: 'Stuffed Tacos', image: '${import.meta.env.BASE_URL}tacos.jpg', description: 'Crispy tacos loaded with modern Indian fillings.' },
+  { name: 'Cold Brew Coffee', image: '${import.meta.env.BASE_URL}coldbrew.jpg', description: 'Chilled coffee steeped overnight for bold flavor.' }
 ];
 
 const ModernFoodPage: React.FC = () => {

@@ -46,7 +46,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Creamy, spiced tomato curry with tender chicken.",
     price: 250,
-    image: "/TasteOfHome/butterchick.jpg",
+    image: "${import.meta.env.BASE_URL}butterchick.jpg",
   },
   {
     id: 2,
@@ -54,7 +54,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Appetizers",
     description: "Grilled paneer marinated in aromatic spices.",
     price: 180,
-    image: "/TasteOfHome/pantik.jpg",
+    image: "${import.meta.env.BASE_URL}pantik.jpg",
   },
   {
     id: 3,
@@ -62,7 +62,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Sweet, syrup-soaked milk balls.",
     price: 90,
-    image: "/TasteOfHome/gulab.jpg",
+    image: "${import.meta.env.BASE_URL}gulab.jpg",
   },
   {
     id: 4,
@@ -70,7 +70,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Beverages",
     description: "Traditional Indian spiced tea.",
     price: 40,
-    image: "/TasteOfHome/masalachai.jpg",
+    image: "${import.meta.env.BASE_URL}masalachai.jpg",
   },
   {
     id: 5,
@@ -78,7 +78,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Fragrant basmati rice cooked with spicy marinated chicken.",
     price: 220,
-    image: "/TasteOfHome/biryani.jpg",
+    image: "${import.meta.env.BASE_URL}biryani.jpg",
   },
   {
     id: 6,
@@ -86,7 +86,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Appetizers",
     description: "Deep-fried pastry filled with spicy potatoes and peas.",
     price: 50,
-    image: "/TasteOfHome/samosa.jpg",
+    image: "${import.meta.env.BASE_URL}samosa.jpg",
   },
   {
     id: 7,
@@ -94,7 +94,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Soft paneer balls soaked in flavored milk.",
     price: 100,
-    image: "/TasteOfHome/rasmalai.jpg",
+    image: "${import.meta.env.BASE_URL}rasmalai.jpg",
   },
   {
     id: 8,
@@ -102,7 +102,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Beverages",
     description: "Cool yogurt-based drink, sweet or salted.",
     price: 60,
-    image: "/TasteOfHome/lassi.jpg",
+    image: "${import.meta.env.BASE_URL}lassi.jpg",
   },
   {
     id: 9,
@@ -110,7 +110,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Cottage cheese cubes in a creamy spinach gravy.",
     price: 200,
-    image: "/TasteOfHome/palakpaneer.jpg",
+    image: "${import.meta.env.BASE_URL}palakpaneer.jpg",
   },
   {
     id: 10,
@@ -118,7 +118,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Appetizers",
     description: "Crispy onion fritters made with gram flour.",
     price: 70,
-    image: "/TasteOfHome/pakoda.jpg",
+    image: "${import.meta.env.BASE_URL}pakoda.jpg",
   },
   {
     id: 11,
@@ -126,7 +126,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Rice pudding flavored with cardamom and saffron.",
     price: 80,
-    image: "/TasteOfHome/kheer.jpg",
+    image: "${import.meta.env.BASE_URL}kheer.jpg",
   },
   {
     id: 12,
@@ -134,7 +134,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Beverages",
     description: "Strong South Indian brewed coffee with frothy milk.",
     price: 45,
-    image: "/TasteOfHome/filtercoffee.jpg",
+    image: "${import.meta.env.BASE_URL}filtercoffee.jpg",
   },
   {
     id: 13,
@@ -142,7 +142,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Spicy chickpeas served with deep-fried fluffy bread.",
     price: 160,
-    image: "/TasteOfHome/cholebhature.jpg",
+    image: "${import.meta.env.BASE_URL}cholebhature.jpg",
   },
   {
     id: 14,
@@ -150,7 +150,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Chicken marinated in yogurt and spices, cooked in tandoor.",
     price: 240,
-    image: "/TasteOfHome/tandoorichicken.jpg",
+    image: "${import.meta.env.BASE_URL}tandoorichicken.jpg",
   },
   {
     id: 15,
@@ -158,7 +158,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Appetizers",
     description: "Steamed savory cake made from fermented rice and chickpeas.",
     price: 70,
-    image: "/TasteOfHome/dhokla.jpg",
+    image: "${import.meta.env.BASE_URL}dhokla.jpg",
   },
   {
     id: 16,
@@ -166,7 +166,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Appetizers",
     description: "Crispy potato patties with spices and herbs.",
     price: 60,
-    image: "/TasteOfHome/alootikki.jpg",
+    image: "${import.meta.env.BASE_URL}alootikki.jpg",
   },
   {
     id: 17,
@@ -174,7 +174,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Deep-fried coils soaked in saffron sugar syrup.",
     price: 50,
-    image: "/TasteOfHome/jalebi.jpg",
+    image: "${import.meta.env.BASE_URL}jalebi.jpg",
   },
   {
     id: 18,
@@ -182,7 +182,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Traditional Indian frozen dairy dessert with cardamom.",
     price: 70,
-    image: "/TasteOfHome/kulfi.jpg",
+    image: "${import.meta.env.BASE_URL}kulfi.jpg",
   },
   {
     id: 19,
@@ -190,7 +190,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Beverages",
     description: "Chilled milk drink with spices, nuts, and rose essence.",
     price: 65,
-    image: "/TasteOfHome/thandai.jpg",
+    image: "${import.meta.env.BASE_URL}thandai.jpg",
   },
   {
     id: 20,
@@ -198,7 +198,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Beverages",
     description: "Hot milk flavored with almonds and saffron.",
     price: 55,
-    image: "/TasteOfHome/badammilk.jpg",
+    image: "${import.meta.env.BASE_URL}badammilk.jpg",
   },
   {
     id: 21,
@@ -206,7 +206,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Red kidney bean curry served with steamed rice.",
     price: 140,
-    image: "/TasteOfHome/rajmachawal.jpg",
+    image: "${import.meta.env.BASE_URL}rajmachawal.jpg",
   },
   {
     id: 22,
@@ -214,7 +214,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Spicy and tangy fish curry with coconut or tamarind base.",
     price: 260,
-    image: "/TasteOfHome/fishcurry.jpg",
+    image: "${import.meta.env.BASE_URL}fishcurry.jpg",
   },
   {
     id: 23,
@@ -222,7 +222,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Appetizers",
     description: "Spicy potato fritter in a bun with chutney.",
     price: 40,
-    image: "/TasteOfHome/vadapav.jpg",
+    image: "${import.meta.env.BASE_URL}vadapav.jpg",
   },
   {
     id: 24,
@@ -230,7 +230,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Appetizers",
     description: "Puffed rice tossed with vegetables and tangy tamarind sauce.",
     price: 50,
-    image: "/TasteOfHome/bhelpuri.jpg",
+    image: "${import.meta.env.BASE_URL}bhelpuri.jpg",
   },
   {
     id: 25,
@@ -238,7 +238,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Sweet gram flour balls with ghee and cardamom.",
     price: 60,
-    image: "/TasteOfHome/besanladoo.jpg",
+    image: "${import.meta.env.BASE_URL}besanladoo.jpg",
   },
   {
     id: 26,
@@ -246,7 +246,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Semolina pudding flavored with ghee and saffron.",
     price: 55,
-    image: "/TasteOfHome/ravakesari.jpg",
+    image: "${import.meta.env.BASE_URL}ravakesari.jpg",
   },
   {
     id: 27,
@@ -254,7 +254,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Beverages",
     description: "Refreshing Indian-style lemonade with salt and spices.",
     price: 30,
-    image: "/TasteOfHome/nimbupani.jpg",
+    image: "${import.meta.env.BASE_URL}nimbupani.jpg",
   },
   {
     id: 28,
@@ -262,7 +262,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Beverages",
     description: "Naturally sweet and hydrating drink from green coconuts.",
     price: 50,
-    image: "/TasteOfHome/coconutwater.jpg",
+    image: "${import.meta.env.BASE_URL}coconutwater.jpg",
   },
   {
     id: 29,
@@ -270,7 +270,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Wheat flatbread stuffed with spiced mashed potatoes.",
     price: 100,
-    image: "/TasteOfHome/alooparatha.jpg",
+    image: "${import.meta.env.BASE_URL}alooparatha.jpg",
   },
   {
     id: 30,
@@ -278,7 +278,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Yogurt-based curry with gram flour fritters.",
     price: 130,
-    image: "/TasteOfHome/kadhi.jpg",
+    image: "${import.meta.env.BASE_URL}kadhi.jpg",
   },
   {
     id: 31,
@@ -286,7 +286,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Main Dishes",
     description: "Stir-fried okra with onions and spices.",
     price: 150,
-    image: "/TasteOfHome/bhindi.jpg",
+    image: "${import.meta.env.BASE_URL}bhindi.jpg",
   },
   {
     id: 32,
@@ -294,7 +294,7 @@ const initialMenuItems: MenuItemType[] = [
     category: "Desserts",
     description: "Rich, slow-cooked lentil dessert with ghee and dry fruits.",
     price: 85,
-    image: "/TasteOfHome/moongdalhalwa.jpg",
+    image: "${import.meta.env.BASE_URL}moongdalhalwa.jpg",
   },
 
   // Your 32 items here (same as previous)

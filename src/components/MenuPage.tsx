@@ -18,7 +18,7 @@ const menuItems: MenuItem[] = [
     category: 'Main Dishes',
     description: 'Creamy, spiced tomato curry with tender chicken.',
     price: 250,
-    image: '/TasteOfHome/butterchick.jpg',
+    image: '${import.meta.env.BASE_URL}butterchick.jpg',
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const menuItems: MenuItem[] = [
     category: 'Appetizers',
     description: 'Grilled paneer marinated in aromatic spices.',
     price: 180,
-    image: '/TasteOfHome/pantik.jpg',
+    image: '${import.meta.env.BASE_URL}pantik.jpg',
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const menuItems: MenuItem[] = [
     category: 'Desserts',
     description: 'Sweet, syrup-soaked milk balls.',
     price: 90,
-    image: '/TasteOfHome/gulab.jpg',
+    image: '${import.meta.env.BASE_URL}gulab.jpg',
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const menuItems: MenuItem[] = [
     category: 'Beverages',
     description: 'Traditional Indian spiced tea.',
     price: 40,
-    image: '/TasteOfHome/masalachai.jpg',
+    image: '${import.meta.env.BASE_URL}masalachai.jpg',
   },
   // New items
   {
@@ -51,7 +51,7 @@ const menuItems: MenuItem[] = [
     category: 'Main Dishes',
     description: 'Slow-cooked lentils in a creamy tomato sauce.',
     price: 200,
-    image: '/TasteOfHome/dalmakhani.jpg',
+    image: '${import.meta.env.BASE_URL}dalmakhani.jpg',
   },
   {
     id: 6,
@@ -59,7 +59,7 @@ const menuItems: MenuItem[] = [
     category: 'Appetizers',
     description: 'Crispy pastry filled with spicy potatoes and peas.',
     price: 60,
-    image: '/TasteOfHome/samosa.jpg',
+    image: '${import.meta.env.BASE_URL}samosa.jpg',
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ const menuItems: MenuItem[] = [
     category: 'Desserts',
     description: 'Soft, spongy cheese balls soaked in sweet syrup.',
     price: 80,
-    image: '/TasteOfHome/rasgulla.jpg',
+    image: '${import.meta.env.BASE_URL}rasgulla.jpg',
   },
   {
     id: 8,
@@ -75,7 +75,7 @@ const menuItems: MenuItem[] = [
     category: 'Beverages',
     description: 'Refreshing yogurt-based drink, sweet or salted.',
     price: 50,
-    image: '/TasteOfHome/lassi.jpg',
+    image: '${import.meta.env.BASE_URL}lassi.jpg',
   },
   {
     id: 9,
@@ -83,7 +83,7 @@ const menuItems: MenuItem[] = [
     category: 'Main Dishes',
     description: 'Fragrant basmati rice cooked with chicken and spices.',
     price: 300,
-    image: '/TasteOfHome/biryani.jpg',
+    image: '${import.meta.env.BASE_URL}biryani.jpg',
   },
   {
     id: 10,
@@ -91,7 +91,7 @@ const menuItems: MenuItem[] = [
     category: 'Appetizers',
     description: 'Fritters made from vegetables coated in chickpea flour.',
     price: 70,
-    image: '/TasteOfHome/pakora.jpg',
+    image: '${import.meta.env.BASE_URL}pakora.jpg',
   },
   {
     id: 11,
@@ -99,7 +99,7 @@ const menuItems: MenuItem[] = [
     category: 'Desserts',
     description: 'Creamy rice pudding flavored with cardamom and nuts.',
     price: 85,
-    image: '/TasteOfHome/kheer.jpg',
+    image: '${import.meta.env.BASE_URL}kheer.jpg',
   },
   {
     id: 12,
@@ -107,7 +107,7 @@ const menuItems: MenuItem[] = [
     category: 'Beverages',
     description: 'Sparkling soda with tangy Indian spices.',
     price: 45,
-    image: '/TasteOfHome/masalasoda.jpg',
+    image: '${import.meta.env.BASE_URL}masalasoda.jpg',
   },
 //   {
 //     id: 13,
