@@ -76,7 +76,7 @@ const RegisterPage: React.FC = () => {
       <ToastContainer />
       <div className="brand-side">
         <div className="brand-content">
-          <img src="/tasteofhome.jpg" alt="Taste of Home" className="brand-image" />
+          <img src="/TasteOfHome/tasteofhome.jpg" alt="Taste of Home" className="brand-image" />
           <h1>Taste of Home</h1>
           <p>Join us and experience the comfort of homemade meals</p>
         </div>

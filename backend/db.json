@@ -6,7 +6,7 @@
       "category": "Main Dishes",
       "description": "Creamy, spiced tomato curry with tender chicken.",
       "price": 250,
-      "image": "/butter-chicken.jpg"
+      "image": "/TasteOfHome/butter-chicken.jpg"
     },
     {
       "id": 2,
@@ -14,7 +14,7 @@
       "category": "Appetizers",
       "description": "Grilled paneer marinated in aromatic spices.",
       "price": 180,
-      "image": "/paneer-tikka.jpg"
+      "image": "/TasteOfHome/paneer-tikka.jpg"
     }
   ]
 }

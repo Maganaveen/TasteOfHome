@@ -66,7 +66,7 @@ const LoginPage: React.FC = () => {
     <div className="split-container">
       <div className="brand-side">
         <div className="brand-content">
-          <img src="/tasteofhome.jpg" alt="Taste of Home" className="brand-image" />
+          <img src="/TasteOfHome/tasteofhome.jpg" alt="Taste of Home" className="brand-image" />
           <h1>Taste of Home</h1>
           <p>Experience the comfort of homemade meals</p>
         </div>
