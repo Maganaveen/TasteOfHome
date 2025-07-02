@@ -102,7 +102,7 @@ const HomePage: React.FC = () => {
               <p>Discover authentic homemade dishes from around the world</p>
             </div>
             
-            <img src="/chef2.jpg" alt="Right Logo" className="side-image" />
+            <img src="/TasteOfHome/chef2.jpg" alt="Right Logo" className="side-image" />
           </div>
         </section>
 
