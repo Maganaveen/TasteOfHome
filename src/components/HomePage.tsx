@@ -68,7 +68,7 @@ const HomePage: React.FC = () => {
    
   </div>  
   
-     <img src="${import.meta.env.BASE_URL}chef.jpg" alt="Chef" className="chef-image" style={{ width: "86px",height: "72px"}} />
+     <img src="/chef.jpg" alt="Chef" className="chef-image" style={{ width: "86px",height: "72px"}} />
   
       <div className="nav-links">
   <button className="nav-link" onClick={() => navigate("/menu")}>
@@ -95,14 +95,14 @@ const HomePage: React.FC = () => {
       <main className="main-content">
        <section className="welcome-section">
           <div className="welcome-content">
-            <img src="${import.meta.env.BASE_URL}spices.jpg" alt="Left Logo" className="side-image" />
+            <img src="$/spices.jpg" alt="Left Logo" className="side-image" />
             
             <div className="text-content">
               <h1>Welcome to Taste of Home</h1>
               <p>Discover authentic homemade dishes from around the world</p>
             </div>
             
-            <img src="${import.meta.env.BASE_URL}chef2.jpg" alt="Right Logo" className="side-image" />
+            <img src="$/chef2.jpg" alt="Right Logo" className="side-image" />
           </div>
         </section>
 
@@ -110,7 +110,7 @@ const HomePage: React.FC = () => {
           <h2>Popular Categories</h2>
           <div className="category-grid">
             <div className="category-card">
-              <img src="${import.meta.env.BASE_URL}maindish.jpg" alt="Main Dishes" />
+              <img src="$/maindish.jpg" alt="Main Dishes" />
               <div className="category-info">
                 <h3>Main Dishes</h3>
                 <p>
@@ -122,7 +122,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             <div className="category-card">
-              <img src="${import.meta.env.BASE_URL}appetizers.jpg" alt="Appetizers" />
+              <img src="$/appetizers.jpg" alt="Appetizers" />
               <div className="category-info">
                 <h3>Appetizers</h3>
                 <p>
@@ -134,7 +134,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             <div className="category-card">
-              <img src="${import.meta.env.BASE_URL}dessert.jpg" alt="Desserts" />
+              <img src="$/dessert.jpg" alt="Desserts" />
               <div className="category-info">
                 <h3>Desserts</h3>
                 <p>
@@ -145,7 +145,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             <div className="category-card">
-              <img src="${import.meta.env.BASE_URL}beverages.jpg" alt="Beverages" />
+              <img src="$/beverages.jpg" alt="Beverages" />
               <div className="category-info">
                 <h3>Beverages</h3>
                 <p>
@@ -164,7 +164,7 @@ const HomePage: React.FC = () => {
               className="category-card"
               onClick={() => navigate("/foods/traditional")}
             >
-              <img src="${import.meta.env.BASE_URL}traditional.jpg" alt="Traditional Food" />
+              <img src="$/traditional.jpg" alt="Traditional Food" />
               <h3>Traditional Food</h3>
               <p>
                 Authentic recipes passed down for generations – soulful and
@@ -175,7 +175,7 @@ const HomePage: React.FC = () => {
               className="category-card"
               onClick={() => navigate("/foods/modern")}
             >
-              <img src="${import.meta.env.BASE_URL}modern.jpg" alt="Modern Food" />
+              <img src="$/modern.jpg" alt="Modern Food" />
               <h3>Modern Food</h3>
               <p>
                 Trendy fusion dishes with a twist – creative, flavorful, and
@@ -190,7 +190,7 @@ const HomePage: React.FC = () => {
               className="category-card"
               onClick={() => navigate("/foods/veg")}
             >
-              <img src="${import.meta.env.BASE_URL}veg.jpg" alt="Vegetarian" />
+              <img src="$/veg.jpg" alt="Vegetarian" />
               <h3>Vegetarian</h3>
               <p>
                 Wholesome and flavorful dishes crafted without meat or seafood.
@@ -201,7 +201,7 @@ const HomePage: React.FC = () => {
               className="category-card"
               onClick={() => navigate("/foods/nonveg")}
             >
-              <img src="${import.meta.env.BASE_URL}nonveg.jpg" alt="Non-Vegetarian" />
+              <img src="$/nonveg.jpg" alt="Non-Vegetarian" />
               <h3>Non-Vegetarian</h3>
               <p>
                 Savory and spicy meat-based meals from various regional
