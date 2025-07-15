@@ -282,9 +282,10 @@ app.post('/api/notify-offers', async (req, res) => {
         });
         successCount++;
       } catch (err) {
-        console.error(`❌ Failed to send to ${formattedNumber}:`, err.message);
-        failedNumbers.push(formattedNumber);
-      }
+  console.error(`❌ Failed to send to ${formattedNumber}:`, err.message);
+  failedNumbers.push({ number: formattedNumber, error: err.message });
+}
+
     }
 
     res.status(200).json({
