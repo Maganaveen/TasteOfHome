@@ -61,9 +61,10 @@ const authenticate = (req, res, next) => {
   }
 };
 
+
 cron.schedule('*/30 * * * *', async () => {
   try {
-    const message = '🎉 Big Festival Offer from Taste of Home! Get 30% OFF on all traditional meals. Valid this weekend only!';
+    const message = '🛍️ Local Test: Festival Offer from Taste of Home! 30% OFF on all meals.';
 
     const users = await User.find({}, 'phoneNumber');
 
@@ -76,11 +77,12 @@ cron.schedule('*/30 * * * *', async () => {
       });
     }
 
-    console.log('✅ Offer SMS sent to all users');
+    console.log(`[${new Date().toLocaleString()}] ✅ Cron: Sent SMS to all users.`);
   } catch (error) {
-    console.error('❌ Scheduled SMS Error:', error);
+    console.error('❌ Cron Error:', error.message);
   }
 });
+
 
 // Register Route
 app.post('/api/register', async (req, res) => {
@@ -267,21 +269,35 @@ app.post('/api/notify-offers', async (req, res) => {
 
     const users = await User.find({}, 'phoneNumber');
 
+    let successCount = 0;
+    let failedNumbers = [];
+
     for (const user of users) {
       const formattedNumber = `+91${user.phoneNumber}`;
-      await twilioClient.messages.create({
-        body: message,
-        from: process.env.TWILIO_PHONE, // your Twilio number
-        to: formattedNumber,
-      });
+      try {
+        await twilioClient.messages.create({
+          body: message,
+          from: process.env.TWILIO_PHONE,
+          to: formattedNumber,
+        });
+        successCount++;
+      } catch (err) {
+        console.error(`❌ Failed to send to ${formattedNumber}:`, err.message);
+        failedNumbers.push(formattedNumber);
+      }
     }
 
-    res.status(200).json({ message: 'Offers sent to all users' });
+    res.status(200).json({
+      message: `Offers sent to ${successCount} users`,
+      failedNumbers,
+    });
+
   } catch (error) {
-    console.error('❌ Notification error:', error);
+    console.error('❌ Notification error (outer catch):', error);
     res.status(500).json({ message: 'Failed to send notifications' });
   }
 });
+
 
 
 // Server Listen
