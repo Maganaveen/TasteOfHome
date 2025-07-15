@@ -12,6 +12,11 @@ const User = require('./models/User');
 const Order = require('./models/order');
 const CartCount = require('./models/CartCount');
 const Cart = require('./models/cart');
+const MealPlan = require('./models/MealPlan');
+const twilio = require('twilio');
+const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
+const cron = require('node-cron');
+
 
 // Middleware
 app.use(cors());
@@ -55,6 +60,27 @@ const authenticate = (req, res, next) => {
     res.status(401).json({ message: "Invalid token" });
   }
 };
+
+cron.schedule('*/30 * * * *', async () => {
+  try {
+    const message = '🎉 Big Festival Offer from Taste of Home! Get 30% OFF on all traditional meals. Valid this weekend only!';
+
+    const users = await User.find({}, 'phoneNumber');
+
+    for (const user of users) {
+      const formattedNumber = `+91${user.phoneNumber}`;
+      await twilioClient.messages.create({
+        body: message,
+        from: process.env.TWILIO_PHONE,
+        to: formattedNumber,
+      });
+    }
+
+    console.log('✅ Offer SMS sent to all users');
+  } catch (error) {
+    console.error('❌ Scheduled SMS Error:', error);
+  }
+});
 
 // Register Route
 app.post('/api/register', async (req, res) => {
@@ -160,6 +186,21 @@ app.post('/api/cart/count', async (req, res) => {
     res.status(500).json({ message: 'Failed to update cart count' });
   }
 });
+
+// Get saved cart for logged-in user
+app.get('/api/cart', authenticate, async (req, res) => {
+  try {
+    const userCart = await Cart.findOne({ userId: req.user.id });
+    if (!userCart) {
+      return res.status(200).json({ items: [] }); // empty cart
+    }
+    res.status(200).json(userCart);
+  } catch (error) {
+    console.error('❌ Fetch cart error:', error);
+    res.status(500).json({ message: 'Failed to fetch cart' });
+  }
+});
+
 app.post('/api/cart/save', authenticate, async (req, res) => {
   try {
     const { items } = req.body;
@@ -181,6 +222,67 @@ app.post('/api/cart/save', authenticate, async (req, res) => {
     res.status(500).json({ message: 'Failed to save cart' });
   }
 });
+
+
+app.post('/api/mealplan/save', authenticate, async (req, res) => {
+  try {
+    const { mealPlan, weeklyTotal } = req.body;
+
+    if (!Array.isArray(mealPlan) || typeof weeklyTotal !== 'number') {
+      return res.status(400).json({ message: 'Invalid meal plan data' });
+    }
+
+    const newMealPlan = new MealPlan({
+      userId: req.user.id,
+      mealPlan,
+      weeklyTotal
+    });
+
+    await newMealPlan.save();
+    // res.status(201).json({ message: 'Meal plan saved successfully' });
+    toastr.success('Meal plan saved successfully', '', { timeOut: 3000 })
+  } catch (error) {
+    console.error('❌ Meal plan save error:', error);
+    // res.status(500).json({ message: 'Failed to save meal plan' });
+    toastr.error('Failed to save meal plan', '', { timeOut: 3000 })
+  }
+});
+
+
+
+app.get('/api/mealplan/history', authenticate, async (req, res) => {
+  try {
+    const history = await MealPlan.find({ userId: req.user.id }).sort({ createdAt: -1 });
+    res.status(200).json(history);
+  } catch (error) {
+    console.error('❌ Fetch history error:', error);
+    res.status(500).json({ message: 'Failed to fetch meal plan history' });
+  }
+});
+
+app.post('/api/notify-offers', async (req, res) => {
+  try {
+    const { message } = req.body;
+    if (!message) return res.status(400).json({ message: 'Message is required' });
+
+    const users = await User.find({}, 'phoneNumber');
+
+    for (const user of users) {
+      const formattedNumber = `+91${user.phoneNumber}`;
+      await twilioClient.messages.create({
+        body: message,
+        from: process.env.TWILIO_PHONE, // your Twilio number
+        to: formattedNumber,
+      });
+    }
+
+    res.status(200).json({ message: 'Offers sent to all users' });
+  } catch (error) {
+    console.error('❌ Notification error:', error);
+    res.status(500).json({ message: 'Failed to send notifications' });
+  }
+});
+
 
 // Server Listen
 const PORT = process.env.PORT || 5000;

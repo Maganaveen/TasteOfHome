@@ -1,0 +1,483 @@
+/* ────── Page Wrapper ────── */
+.daily-routine-container, .daily-routine-1 {
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+/* ────── Overlay Overlay ────── */
+.daily-routine-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 1;
+}
+.daily-routine-container > *, .daily-routine-1 > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ────── Header with Icon ────── */
+.header-with-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.daily-routine-container h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2c3e50;
+}
+.meal-cell {
+  background: #ffffff;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.meal-cell:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.select, select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+  background: rgba(255, 255, 255, 0.85) url('/thoranam.jpg') no-repeat right 1rem center;
+  background-size: 24px;
+  border: 2px solid rgba(52, 152, 219, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  appearance: none;
+}
+
+.select:hover,
+select:hover {
+  border-color: #2196f3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+select:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.25);
+}
+.meal-selection-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.meal-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-dropdown select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  padding-right: 2.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid rgba(52, 152, 219, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  appearance: none;
+  font-weight: 500;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.custom-dropdown select:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.25);
+}
+
+.dropdown-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #3498db;
+  font-size: 1rem;
+}
+
+
+/* ────── Meal Plan Grid ────── */
+.meal-plan-grid {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  margin: 2rem auto;
+  max-width: 1400px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.header-row, .day-row {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 2.5fr 2.5fr 1.5fr;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.header-row {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 2.5fr 2.5fr 1.5fr;
+  background: linear-gradient(90deg, #00bcd4, #2196f3);
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem 0;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.day-order-circle {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(to bottom, #00bcd4, #2196f3);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.day-order-pill {
+  width: 120px;                  /* Fixed width */
+  height: 45px;                  /* Fixed height */
+  line-height: 45px;             /* Vertically center the text */
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 30px;           /* Pill shape */
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: linear-gradient(to right, #4fc3f7, #0288d1);
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-order-pill:hover {
+  transform: scale(1.05);
+}
+.day-order-pill[data-day="Sunday"]    { background: linear-gradient(to right, #ff6f61, #ff9472); }
+.day-order-pill[data-day="Monday"]    { background: linear-gradient(to right, #4fc3f7, #0288d1); }
+.day-order-pill[data-day="Tuesday"]   { background: linear-gradient(to right, #66bb6a, #43a047); }
+.day-order-pill[data-day="Wednesday"] { background: linear-gradient(to right, #9575cd, #7e57c2); }
+.day-order-pill[data-day="Thursday"]  { background: linear-gradient(to right, #fdd835, #fbc02d); }
+.day-order-pill[data-day="Friday"]    { background: linear-gradient(to right, #ef5350, #e53935); }
+.day-order-pill[data-day="Saturday"]  { background: linear-gradient(to right, #26c6da, #00acc1); }
+
+
+/* ────── Day Cell Styling ────── */
+.day-row {
+  transition: all 0.3s ease;
+}
+.day-row:hover {
+  background: rgba(52,152,219,0.05);
+  transform: translateX(5px);
+}
+.day-cell {
+  background: url('/spices.jpg') center/cover;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+.day-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+.day-cell:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.3);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.day-cell:hover::before {
+  background: rgba(0,0,0,0.3);
+}
+.day-cell span {
+  position: relative;
+  z-index: 2;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease;
+}
+.day-cell:hover span { transform: scale(1.1); }
+
+/* ────── Assign per‑day images ────── */
+.day-cell[data-day="Monday"]    { background-image: url('/idli.jpg'); }
+.day-cell[data-day="Tuesday"]   { background-image: url('/biryani.jpg'); }
+.day-cell[data-day="Wednesday"] { background-image: url('/dosa.jpg'); }
+.day-cell[data-day="Thursday"]  { background-image: url('/paneerbuttermasala.jpg'); }
+.day-cell[data-day="Friday"]    { background-image: url('/cholebhature.jpg'); }
+.day-cell[data-day="Saturday"]  { background-image: url('/vegbiryani.jpg'); }
+.day-cell[data-day="Sunday"]    { background-image: url('/traditional.jpg'); }
+.day-cell[data-day] {
+  background-size: cover;
+  background-position: center;
+}
+
+/* ────── Select & Preview ────── */
+.select, select {
+  width: 90%;
+  padding: 0.8rem;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  border: 2px solid rgba(52,152,219,0.3);
+  border-radius: 8px;
+  background: #fff url('/thoranam.jpg') no-repeat right 10px center;
+  background-size: 20px;
+  transition: all 0.3s ease;
+}
+select:hover { border-color: #3498db; }
+select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+}
+.meal-preview {
+  width: 150px;
+  height: 150px;
+  margin: 1rem auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+.meal-preview:hover { transform: scale(1.05); }
+.meal-preview img { width: 100%; height: 100%; object-fit: cover; }
+.meal-preview .price {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem;
+}
+
+/* ────── Totals & Submit − Weekly Summary ────── */
+.total-cell, .total-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-weight: 600;
+  background: rgba(44,62,80,0.05);
+}
+.weekly-summary {
+  margin-top: 2rem;
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2rem;
+}
+.weekly-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  color: white;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.weekly-total .amount {
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+.submit-button {
+  display: block;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.submit-button:hover::before { left: 100%; }
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52,152,219,0.3);
+}
+
+/* ────── History Modal & Cards ────── */
+.history-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.modal-content {
+  background: #fff;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 2rem;
+  position: relative;
+  animation: fadeInUp 0.4s ease-out;
+}
+@keyframes fadeInUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.close-button {
+  position: absolute;
+  top: 12px; right: 20px;
+  font-size: 1.5rem;
+  background: none; border: none;
+  cursor: pointer;
+}
+
+/* ────── History Cards Poster‑Style ────── */
+.history-card-new {
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-left: 6px solid #3498db;
+  transition: transform 0.3s ease;
+}
+.history-card-new:hover { transform: translateY(-4px); }
+.history-date {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+.history-plan-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.history-day-block {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.history-day-block h3 {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.history-day-block p {
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+}
+.weekly-total-line {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.1rem;
+  color: #34495e;
+}
+
+/* ────── Responsive ────── */
+@media (max-width: 1200px) {
+  .meal-preview { width: 120px; height: 120px; }
+}
+@media (max-width: 768px) {
+  .meal-plan-grid {
+    grid-template-columns: 1fr;
+  }
+  .select, select { width: 100%; }
+  .history-plan-blocks {
+    grid-template-columns: 1fr;
+  }
+}
+.logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-logo {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fef6f0;
+  color: #2c3e50;
+}

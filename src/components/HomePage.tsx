@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaYoutube, FaTwitter, FaInstagram } from "react-icons/fa";
-import { FaConciergeBell, FaShoppingCart, FaSignOutAlt, FaListAlt } from "react-icons/fa"; // ✅ Add these icons
+import {
+  FaConciergeBell,
+  FaShoppingCart,
+  FaSignOutAlt,
+  FaListAlt,
+} from "react-icons/fa"; // ✅ Add these icons
 import "./HomePage.css";
+// Add import at the top
+import { FaCalendarAlt } from "react-icons/fa";
+
 interface CartItem {
   id: number;
   name: string;
@@ -16,12 +24,28 @@ const HomePage: React.FC = () => {
   const [showCartModal, setShowCartModal] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
   // Example: load cart from localStorage (or replace this with context)
-  useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-  }, []);
+// useEffect(() => {
+//   const token = localStorage.getItem("token");
+//   console.log(token);
+  
+//   if (!token) return;
+
+//   fetch("http://localhost:5000/api/cart", {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   })
+//     .then((res) => res.json())
+//     .then((data) => {
+//       if (Array.isArray(data.items)) {
+//         setCart(data.items);
+//         localStorage.setItem("cart", JSON.stringify(data.items));
+//       }
+//     })
+//     .catch((err) => console.error("❌ Error loading cart:", err));
+// }, []);
+
   // Authentication check
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,25 +57,32 @@ const HomePage: React.FC = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  useEffect(() => {
-  const savedCart = localStorage.getItem("cart");
-  const token = localStorage.getItem("token");
-  if (savedCart) {
-    const parsedCart = JSON.parse(savedCart);
-    setCart(parsedCart);
-    // Example API call to save cart count
-    fetch("/api/cart/count", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: token, // or user ID from JWT/context
-        count: parsedCart.length,
-      }),
-    });
-  }
+ useEffect(() => {
+  const fetchSavedCart = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const res = await fetch("http://localhost:5000/api/cart", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setCart(data.items || []);
+        localStorage.setItem("cart", JSON.stringify(data.items || []));
+      }
+    } catch (err) {
+      console.error("Failed to fetch saved cart:", err);
+    }
+  };
+
+  fetchSavedCart();
 }, []);
+
   const openCartModal = () => setShowCartModal(true);
   const closeCartModal = () => setShowCartModal(false);
   return (
@@ -59,50 +90,69 @@ const HomePage: React.FC = () => {
       <nav className="navbar" style={{ height: "80px" }}>
         <div className="nav-brand">
           <div className="image-box">
-            <img src="/taste1.png" alt="Taste of Home" />
+            <img src="/TasteOfHome/taste1.png" alt="Taste of Home" />
           </div>
         </div>
         <div className="brand-title">
-    <h1 className="main-heading">Taste of Home</h1>
-    <p className="tagline">Your gateway to authentic homemade dishes</p>
-   
-  </div>  
-  
-     <img src="/TasteOfHome/chef.jpg" alt="Chef" className="chef-image" style={{ width: "86px",height: "72px"}} />
-  
-      <div className="nav-links">
-  <button className="nav-link" onClick={() => navigate("/menu")}>
-    <FaListAlt style={{ marginRight: "5px" }} />
-    Menu
-  </button>
-  <button className="nav-link" onClick={openCartModal}>
-    <FaShoppingCart style={{ marginRight: "5px" }} />
-    Cart ({cart.length})
-  </button>
-  <button
-    className="nav-link"
-    onClick={() => navigate("/order", { state: { cart } })}
-  >
-    <FaConciergeBell style={{ marginRight: "5px" }} />
-    Place Order
-  </button>
-  <button className="nav-link" onClick={handleLogout}>
-    <FaSignOutAlt style={{ marginRight: "5px" }} />
-    Logout
-  </button>
-</div>
+          <h1 className="main-heading">Taste of Home</h1>
+          <p className="tagline">Your gateway to authentic homemade dishes</p>
+        </div>
+
+        <img
+          src="/TasteOfHome/chef.jpg"
+          alt="Chef"
+          className="chef-image"
+          style={{ width: "86px", height: "72px" }}
+        />
+
+        <div className="nav-links">
+          <button className="nav-link" onClick={() => navigate("/menu")}>
+            <FaListAlt style={{ marginRight: "5px" }} />
+            Menu
+          </button>
+          <button className="nav-link" onClick={openCartModal}>
+            <FaShoppingCart style={{ marginRight: "5px" }} />
+            Cart ({cart.length})
+          </button>
+          <button
+            className="nav-link"
+            onClick={() => navigate("/order", { state: { cart } })}
+          >
+            <FaConciergeBell style={{ marginRight: "5px" }} />
+            Place Order
+          </button>
+          <button
+            className="nav-link"
+            onClick={() => navigate("/daily-routine")}
+          >
+            <FaCalendarAlt style={{ marginRight: "5px" }} />
+            Daily Routine
+          </button>
+          <button className="nav-link" onClick={handleLogout}>
+            <FaSignOutAlt style={{ marginRight: "5px" }} />
+            Logout
+          </button>
+        </div>
       </nav>
       <main className="main-content">
-       <section className="welcome-section">
+        <section className="welcome-section">
           <div className="welcome-content">
-            <img src="/TasteOfHome/spices.jpg" alt="Left Logo" className="side-image" />
-            
+            <img
+              src="/TasteOfHome/spices.jpg"
+              alt="Left Logo"
+              className="side-image"
+            />
+
             <div className="text-content">
               <h1>Welcome to Taste of Home</h1>
               <p>Discover authentic homemade dishes from around the world</p>
             </div>
-            
-            <img src="/TasteOfHome/chef2.jpg" alt="Right Logo" className="side-image" />
+
+            <img
+              src="/TasteOfHome/chef2.jpg"
+              alt="Right Logo"
+              className="side-image"
+            />
           </div>
         </section>
 
@@ -223,7 +273,11 @@ const HomePage: React.FC = () => {
       {/* Cart Modal */}
       {showCartModal && (
         <div className="modal-overlay" onClick={closeCartModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ width: "80%", maxWidth: "800px" }}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+            style={{ width: "80%", maxWidth: "800px" }}
+          >
             <h2>Your Cart</h2>
             {cart.length === 0 ? (
               <p>Your cart is empty.</p>
@@ -231,16 +285,26 @@ const HomePage: React.FC = () => {
               <div>
                 <ul className="cart-list" style={{ padding: 0 }}>
                   {cart.map((item) => (
-                    <li key={item.id} className="cart-item" style={{ 
-                      display: "flex", 
-                      margin: "10px 0", 
-                      padding: "15px", 
-                      borderRadius: "8px",
-                      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                      alignItems: "center",
-                      justifyContent: "space-between"
-                    }}>
-                      <div style={{ display: "flex", alignItems: "center", flex: 3 }}>
+                    <li
+                      key={item.id}
+                      className="cart-item"
+                      style={{
+                        display: "flex",
+                        margin: "10px 0",
+                        padding: "15px",
+                        borderRadius: "8px",
+                        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          flex: 3,
+                        }}
+                      >
                         <img
                           src={item.image}
                           alt={item.name}
@@ -249,29 +313,51 @@ const HomePage: React.FC = () => {
                             height: "100px",
                             objectFit: "cover",
                             borderRadius: "8px",
-                            marginRight: "20px"
+                            marginRight: "20px",
                           }}
                         />
                         <div>
                           <h3 style={{ margin: "0 0 8px 0" }}>{item.name}</h3>
-                          <p style={{ margin: "0 0 8px 0", color: "#666", fontSize: "14px" }}>
-                            {item.description || "Delicious homemade food prepared with authentic spices and ingredients."}
+                          <p
+                            style={{
+                              margin: "0 0 8px 0",
+                              color: "#666",
+                              fontSize: "14px",
+                            }}
+                          >
+                            {item.description ||
+                              "Delicious homemade food prepared with authentic spices and ingredients."}
                           </p>
-                          <div style={{ display: "flex", alignItems: "center" }}>
-                            <span style={{ fontWeight: "bold", fontSize: "18px" }}>₹{item.price}</span>
-                            <span style={{ marginLeft: "15px", color: "#666" }}>Quantity: {item.quantity}</span>
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <span
+                              style={{ fontWeight: "bold", fontSize: "18px" }}
+                            >
+                              ₹{item.price}
+                            </span>
+                            <span style={{ marginLeft: "15px", color: "#666" }}>
+                              Quantity: {item.quantity}
+                            </span>
                           </div>
                         </div>
                       </div>
-                      <div style={{ display: "flex", gap: "10px", flex: 1, justifyContent: "flex-end" }}>
-                        <button 
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          flex: 1,
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <button
                           style={{
                             padding: "8px 16px",
                             backgroundColor: "#ff4444",
                             color: "white",
                             border: "none",
                             borderRadius: "4px",
-                            cursor: "pointer"
+                            cursor: "pointer",
                           }}
                           onClick={() => {
                             navigate("/order", { state: { cart: [item] } });
@@ -284,25 +370,36 @@ const HomePage: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-                <div style={{ 
-                  display: "flex", 
-                  justifyContent: "space-between", 
-                  marginTop: "20px",
-                  padding: "15px",
-                  borderTop: "1px solid #eee" 
-                }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "20px",
+                    padding: "15px",
+                    borderTop: "1px solid #eee",
+                  }}
+                >
                   <div>
-                    <h3>Total: ₹{cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0).toFixed(2)}</h3>
+                    <h3>
+                      Total: ₹
+                      {cart
+                        .reduce(
+                          (sum, item) =>
+                            sum + item.price * (item.quantity || 1),
+                          0
+                        )
+                        .toFixed(2)}
+                    </h3>
                   </div>
                   <div style={{ display: "flex", gap: "10px" }}>
-                    <button 
+                    <button
                       style={{
                         padding: "10px 20px",
                         backgroundColor: "#ff4444",
                         color: "white",
                         border: "none",
                         borderRadius: "4px",
-                        cursor: "pointer"
+                        cursor: "pointer",
                       }}
                       onClick={() => {
                         navigate("/order", { state: { cart } });
@@ -311,8 +408,8 @@ const HomePage: React.FC = () => {
                     >
                       Order All Items
                     </button>
-                    <button 
-                      className="close-modal-btn" 
+                    <button
+                      className="close-modal-btn"
                       onClick={closeCartModal}
                       style={{
                         padding: "10px 20px",
@@ -320,7 +417,7 @@ const HomePage: React.FC = () => {
                         color: "white",
                         border: "none",
                         borderRadius: "4px",
-                        cursor: "pointer"
+                        cursor: "pointer",
                       }}
                     >
                       Close
