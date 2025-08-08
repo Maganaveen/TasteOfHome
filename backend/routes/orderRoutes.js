@@ -365,4 +365,3 @@ router.post('/simple-email-test', async (req, res) => {
 });
 
 module.exports = router;
-a
