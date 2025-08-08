@@ -221,6 +221,20 @@ const DailyRoutinePage: React.FC = () => {
             className="brand-logo"
           />
           <h1>Taste of Home – Weekly Meal Planner</h1>
+          <div className="meal-time-notice">
+            <h3>🍽️ Meal Time Notice</h3>
+            <ul>
+              <li>
+                <strong>Breakfast:</strong> 7:00 AM – 9:00 AM
+              </li>
+              <li>
+                <strong>Lunch:</strong> 12:30 PM – 2:00 PM
+              </li>
+              <li>
+                <strong>Dinner:</strong> 7:00 PM – 9:00 PM
+              </li>
+            </ul>
+          </div>
         </div>
         <button
           className="icon-button"

@@ -109,6 +109,51 @@ input.error {
   cursor: not-allowed;
 }
 
+/* Google Sign-In Styles */
+.divider {
+  text-align: center;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.divider span {
+  background-color: white;
+  padding: 0 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.google-signin-container {
+  margin-bottom: 1.5rem;
+}
+
+.google-loading {
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Override Google button styles to match our design */
+#google-signup-button {
+  width: 100% !important;
+}
+
+#google-signup-button > div {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
 .login-link {
   text-align: center;
   margin-top: 1.5rem;

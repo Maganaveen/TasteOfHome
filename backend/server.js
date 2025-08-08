@@ -3,6 +3,8 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
+const path = require('path');
+
 require('dotenv').config();
 
 const app = express();
@@ -23,10 +25,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('✅ MongoDB connected successfully'))
 .catch((error) => console.error('❌ MongoDB connection error:', error));
 
@@ -62,29 +61,88 @@ const authenticate = (req, res, next) => {
 };
 
 
-cron.schedule('*/30 * * * *', async () => {
+// Helper function to send both SMS and WhatsApp
+async function sendBothMessages(phoneNumber, message) {
+  const formattedNumber = `+91${phoneNumber}`;
+  const results = { sms: null, whatsapp: null };
+
+  // Send SMS
   try {
-    const message = '🛍️ Local Test: Festival Offer from Taste of Home! 30% OFF on all meals.';
+    console.log(`📤 Sending SMS to: ${formattedNumber}`);
+    const smsResult = await twilioClient.messages.create({
+      body: message,
+      from: process.env.TWILIO_PHONE,
+      to: formattedNumber,
+    });
+    results.sms = { success: true, sid: smsResult.sid };
+    console.log(`✅ SMS sent successfully to: ${formattedNumber}`);
+  } catch (smsError) {
+    results.sms = { success: false, error: smsError.message };
+    console.error(`❌ Failed to send SMS to ${formattedNumber}:`, smsError.message);
+  }
 
-    const users = await User.find({}, 'phoneNumber');
+  // Send WhatsApp
+  try {
+    console.log(`📤 Sending WhatsApp to: ${formattedNumber}`);
+    const whatsappResult = await twilioClient.messages.create({
+      body: message,
+      from: `whatsapp:${process.env.TWILIO_WHATSAPP}`,
+      to: `whatsapp:${formattedNumber}`,
+    });
+    results.whatsapp = { success: true, sid: whatsappResult.sid };
+    console.log(`✅ WhatsApp sent successfully to: ${formattedNumber}`);
+  } catch (whatsappError) {
+    results.whatsapp = { success: false, error: whatsappError.message };
+    console.error(`❌ Failed to send WhatsApp to ${formattedNumber}:`, whatsappError.message);
+  }
 
-    for (const user of users) {
-      const formattedNumber = `+91${user.phoneNumber}`;
-      await twilioClient.messages.create({
-        body: message,
-        from: process.env.TWILIO_PHONE,
-        to: formattedNumber,
-      });
+  return results;
+}
+
+cron.schedule('*/45 * * * *', async () => {
+  try {
+    const message = '🛍️ Special Deal: 30% OFF only for active users! Taste of Home.';
+
+    const users = await User.find({ 
+      isLoggedIn: true, 
+      phoneNumber: { $exists: true, $ne: null, $ne: '' } 
+    }, 'phoneNumber');
+
+    // console.log(`[${new Date().toLocaleString()}] 📱 Found ${users.length} logged-in users with phone numbers.`);
+
+    if (users.length === 0) {
+      // console.log(`[${new Date().toLocaleString()}] ℹ️ No logged-in users with phone numbers found.`);
+      return;
     }
 
-    console.log(`[${new Date().toLocaleString()}] ✅ Cron: Sent SMS to all users.`);
+    let smsSuccessCount = 0;
+    let whatsappSuccessCount = 0;
+    let smsFailedCount = 0;
+    let whatsappFailedCount = 0;
+
+    for (const user of users) {
+      const results = await sendBothMessages(user.phoneNumber, message);
+      
+      if (results.sms.success) smsSuccessCount++;
+      else smsFailedCount++;
+      
+      if (results.whatsapp.success) whatsappSuccessCount++;
+      else whatsappFailedCount++;
+    }
+
+    // console.log(`[${new Date().toLocaleString()}] ✅ Cron Summary:`);
+    // console.log(`  📱 SMS: ${smsSuccessCount} sent, ${smsFailedCount} failed`);
+    // console.log(`  💬 WhatsApp: ${whatsappSuccessCount} sent, ${whatsappFailedCount} failed`);
   } catch (error) {
-    console.error('❌ Cron Error:', error.message);
+    // console.error('❌ Cron Error:', error.message);
   }
 });
 
 
+
 // Register Route
+const nodemailer = require('nodemailer');
+
 app.post('/api/register', async (req, res) => {
   try {
     const { name, email, password, phoneNumber } = req.body;
@@ -106,12 +164,62 @@ app.post('/api/register', async (req, res) => {
     const newUser = new User({ name, email, password: hashedPassword, phoneNumber });
     await newUser.save();
 
+  
+    const userCount = await User.countDocuments();
+    if (userCount === 0) {
+      // nodemailer code...
+    }
+    
+    if (userCount != 0) {
+      // console.log("✅ First user detected, preparing to send welcome email...");
+      
+      // Send welcome email to the first user
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+      console.log(transporter);
+      
+
+     const mailOptions = {
+      from: 'mytasteofhome24@gmail.com',
+      to: email,
+      subject: 'Welcome to Taste of Home!',
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #333;">
+          <h2 style="color: #ff6347;">Hello ${name},</h2>
+          <p>🎉 We're thrilled to welcome you to <strong>Taste of Home</strong>!</p>
+          <p>Get ready to embark on a culinary journey with us. Enjoy delicious homemade meals, crafted just for you, with love and care.</p>
+          <img src="cid:welcomeImage" alt="Welcome to Taste of Home" style="width:100%; max-width:600px; margin: 20px 0;" />
+          <p>We hope you enjoy every bite and savor every moment. 🍽️</p>
+          <p>Bon Appétit!</p>
+          <p>— Team Taste of Home</p>
+        </div>
+      `,
+      attachments: [{
+        filename: 'welcome.jpg',
+        path: path.join(__dirname, '../public/orange.jpg'),
+        cid: 'welcomeImage' // Same CID as in the html img src
+      }]
+    };
+
+
+      await transporter.sendMail(mailOptions);
+      console.log('📧 Welcome email sent to the first user:', email);
+    }
+
     res.status(201).json({ message: 'User registered successfully' });
+
   } catch (error) {
     console.error('❌ Registration error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 
 // Login Route
 app.post('/api/login', async (req, res) => {
@@ -127,48 +235,49 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    // Update user login status
+    await User.findByIdAndUpdate(user._id, {
+      isLoggedIn: true,
+      lastLoginAt: new Date()
+    });
+
     const token = jwt.sign(
       { id: user._id, name: user.name, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    res.json({ token });
+    // ✅ Return token + user data (name & avatar)
+    res.json({
+      token,
+      user: {
+        name: user.name,
+        avatar: user.avatar || "", // fallback if no avatar is stored
+      },
+    });
   } catch (error) {
-    // console.error('❌ Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Order Submission Route (Authenticated)
-app.post('/api/orders', authenticate, async (req, res) => {
+// Logout Route
+app.post('/api/logout', authenticate, async (req, res) => {
   try {
-    const { itemId, itemName, quantity, price, total, discount, paymentMethod, phone, address } = req.body;
-
-    if (!itemName || !quantity || !paymentMethod || !phone || !address) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
-
-    const newOrder = new Order({
-      itemId,
-      itemName,
-      quantity,
-      price,
-      total,
-      discount,
-      paymentMethod,
-      customerName: req.user.name, // ✅ Get name from token
-      phone,
-      address,
+    // Set user as logged out
+    await User.findByIdAndUpdate(req.user.id, {
+      isLoggedIn: false
     });
 
-    await newOrder.save();
-    res.status(201).json({ message: 'Order placed successfully' });
+    res.json({ message: 'Logged out successfully' });
   } catch (error) {
-    // console.error('❌ Order error:', error);
-    res.status(500).json({ message: 'Failed to place order' });
+    console.error('❌ Logout error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Import and use order routes
+const orderRoutes = require('./routes/orderRoutes');
+app.use('/api', orderRoutes);
 app.post('/api/cart/count', async (req, res) => {
   const { userId, count } = req.body;
 
@@ -241,12 +350,10 @@ app.post('/api/mealplan/save', authenticate, async (req, res) => {
     });
 
     await newMealPlan.save();
-    // res.status(201).json({ message: 'Meal plan saved successfully' });
-    toastr.success('Meal plan saved successfully', '', { timeOut: 3000 })
+    res.status(201).json({ message: 'Meal plan saved successfully' });
   } catch (error) {
     console.error('❌ Meal plan save error:', error);
-    // res.status(500).json({ message: 'Failed to save meal plan' });
-    toastr.error('Failed to save meal plan', '', { timeOut: 3000 })
+    res.status(500).json({ message: 'Failed to save meal plan' });
   }
 });
 
@@ -267,29 +374,45 @@ app.post('/api/notify-offers', async (req, res) => {
     const { message } = req.body;
     if (!message) return res.status(400).json({ message: 'Message is required' });
 
-    const users = await User.find({}, 'phoneNumber');
+    const users = await User.find({ 
+      isLoggedIn: true, 
+      phoneNumber: { $exists: true, $ne: null, $ne: '' } 
+    }, 'phoneNumber');
 
-    let successCount = 0;
+    let smsSuccessCount = 0;
+    let whatsappSuccessCount = 0;
     let failedNumbers = [];
 
     for (const user of users) {
-      const formattedNumber = `+91${user.phoneNumber}`;
-      try {
-        await twilioClient.messages.create({
-          body: message,
-          from: process.env.TWILIO_PHONE,
-          to: formattedNumber,
+      const results = await sendBothMessages(user.phoneNumber, message);
+      
+      if (results.sms.success) {
+        smsSuccessCount++;
+      } else {
+        failedNumbers.push({ 
+          number: `+91${user.phoneNumber}`, 
+          type: 'SMS',
+          error: results.sms.error 
         });
-        successCount++;
-      } catch (err) {
-  console.error(`❌ Failed to send to ${formattedNumber}:`, err.message);
-  failedNumbers.push({ number: formattedNumber, error: err.message });
-}
-
+      }
+      
+      if (results.whatsapp.success) {
+        whatsappSuccessCount++;
+      } else {
+        failedNumbers.push({ 
+          number: `+91${user.phoneNumber}`, 
+          type: 'WhatsApp',
+          error: results.whatsapp.error 
+        });
+      }
     }
 
     res.status(200).json({
-      message: `Offers sent to ${successCount} users`,
+      message: `Messages sent - SMS: ${smsSuccessCount}, WhatsApp: ${whatsappSuccessCount}`,
+      summary: {
+        sms: { success: smsSuccessCount, failed: failedNumbers.filter(f => f.type === 'SMS').length },
+        whatsapp: { success: whatsappSuccessCount, failed: failedNumbers.filter(f => f.type === 'WhatsApp').length }
+      },
       failedNumbers,
     });
 
@@ -298,8 +421,6 @@ app.post('/api/notify-offers', async (req, res) => {
     res.status(500).json({ message: 'Failed to send notifications' });
   }
 });
-
-
 
 // Server Listen
 const PORT = process.env.PORT || 5000;

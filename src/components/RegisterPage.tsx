@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RegisterPage.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,19 @@ interface RegisterFormData {
   phoneNumber: string;
 }
 
+interface GoogleUser {
+  email: string;
+  name: string;
+  picture: string;
+  sub: string;
+}
+
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
     name: '',
@@ -20,7 +33,84 @@ const RegisterPage: React.FC = () => {
     phoneNumber: ''
   });
   const [errors, setErrors] = useState<Partial<RegisterFormData>>({});
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Initialize Google Sign-In
+  useEffect(() => {
+    const initializeGoogleSignIn = () => {
+      if (window.google) {
+        window.google.accounts.id.initialize({
+          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || "your-google-client-id.googleusercontent.com",
+          callback: handleGoogleSignUp,
+          auto_select: false,
+          cancel_on_tap_outside: true,
+        });
+
+        window.google.accounts.id.renderButton(
+          document.getElementById("google-signup-button"),
+          {
+            theme: "outline",
+            size: "large",
+            width: "100%",
+            text: "signup_with",
+            shape: "rectangular",
+          }
+        );
+      }
+    };
+
+    // Load Google Identity Services script
+    if (!window.google) {
+      const script = document.createElement("script");
+      script.src = "https://accounts.google.com/gsi/client";
+      script.async = true;
+      script.defer = true;
+      script.onload = initializeGoogleSignIn;
+      document.head.appendChild(script);
+    } else {
+      initializeGoogleSignIn();
+    }
+  }, []);
+
+  const handleGoogleSignUp = async (response: any) => {
+    setIsGoogleLoading(true);
+    try {
+      // Decode the JWT token to get user info
+      const token = response.credential;
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      
+      const googleUser: GoogleUser = JSON.parse(jsonPayload);
+      
+      // Send Google user data to your backend
+      const registerResponse = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/google-login`,
+        {
+          email: googleUser.email,
+          name: googleUser.name,
+          picture: googleUser.picture,
+          googleId: googleUser.sub,
+          token: token
+        }
+      );
+
+      const { token: authToken, user } = registerResponse.data;
+      localStorage.setItem("token", authToken);
+      localStorage.setItem("user", JSON.stringify(user));
+      
+      toast.success('Google registration successful!');
+      setTimeout(() => navigate('/home'), 2000);
+    } catch (error: any) {
+      console.error("Google sign-up error:", error);
+      toast.error(error.response?.data?.message || 'Google sign-up failed. Please try again.');
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
 
   const validateForm = (): boolean => {
     const newErrors: Partial<RegisterFormData> = {};
@@ -55,8 +145,8 @@ const RegisterPage: React.FC = () => {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      await axios.post('http://localhost:5000/api/register', formData);
-      toast.success('Submitted successfully!');
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, formData);
+      toast.success('Registration successful!');
       setTimeout(() => navigate('/login'), 2000); // Redirect after 2 seconds
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Registration failed');
@@ -143,8 +233,21 @@ const RegisterPage: React.FC = () => {
             Create Account
           </button>
 
+          {/* <div className="divider">
+            <span>or</span>
+          </div>
+
+          <div className="google-signin-container">
+            <div id="google-signup-button"></div>
+            {isGoogleLoading && (
+              <div className="google-loading">
+                <span>Signing up with Google...</span>
+              </div>
+            )}
+          </div> */}
+
           <div className="login-link">
-            <p>Already have an account? <a href="/login">Login here</a></p>
+            <p>Already have an account? <a href="#/login">Login here</a></p>
           </div>
         </form>
       </div>
