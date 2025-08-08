@@ -42,7 +42,7 @@ const LoginPage: React.FC = () => {
   });
   const [errors, setErrors] = useState<Partial<LoginFormData>>({});
   const [, setError] = useState<string>("");
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   // Initialize Google Sign-In
   useEffect(() => {
@@ -82,7 +82,7 @@ const LoginPage: React.FC = () => {
   }, []);
 
   const handleGoogleSignIn = async (response: any) => {
-    setIsGoogleLoading(true);
+    // setIsGoogleLoading(true);
     try {
       // Decode the JWT token to get user info
       const token = response.credential;
@@ -115,7 +115,7 @@ const LoginPage: React.FC = () => {
       console.error("Google sign-in error:", error);
       setError("Google sign-in failed. Please try again.");
     } finally {
-      setIsGoogleLoading(false);
+      // setIsGoogleLoading(false);
     }
   };
 

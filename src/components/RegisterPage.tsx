@@ -33,7 +33,7 @@ const RegisterPage: React.FC = () => {
     phoneNumber: ''
   });
   const [errors, setErrors] = useState<Partial<RegisterFormData>>({});
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const navigate = useNavigate();
 
   // Initialize Google Sign-In
@@ -74,7 +74,7 @@ const RegisterPage: React.FC = () => {
   }, []);
 
   const handleGoogleSignUp = async (response: any) => {
-    setIsGoogleLoading(true);
+    // setIsGoogleLoading(true);
     try {
       // Decode the JWT token to get user info
       const token = response.credential;
@@ -108,7 +108,7 @@ const RegisterPage: React.FC = () => {
       console.error("Google sign-up error:", error);
       toast.error(error.response?.data?.message || 'Google sign-up failed. Please try again.');
     } finally {
-      setIsGoogleLoading(false);
+      // setIsGoogleLoading(false);
     }
   };
 
